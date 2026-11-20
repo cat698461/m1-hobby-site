@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>나의 취미 : 사진 촬영 (我的爱好：摄影)</title>
+  <style>
+    /* 全局基础样式重置与排版 */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Malgun Gothic", "Microsoft YaHei", sans-serif;
+      line-height: 1.6;
+      color: #2d3748;
+      background-color: #f7fafc;
+      padding: 30px 16px 60px;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* 顶部页头样式 */
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 28px 20px;
+      background: #ffffff;
+      border-radius: 14px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .badge {
+      display: inline-block;
+      background-color: #ebf8ff;
+      color: #2b6cb0;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #1a202c;
+      margin-bottom: 6px;
+    }
+
+    .sub-title {
+      font-size: 0.95rem;
+      color: #718096;
+      margin-bottom: 16px;
+    }
+
+    .intro-quote {
+      font-size: 1.05rem;
+      color: #4a5568;
+      font-style: normal;
+      background: #edf2f7;
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 8px;
+      border-left: 4px solid #3182ce;
+    }
+
+    /* 区域标题通用样式 */
+    .section-title {
+      font-size: 1.35rem;
+      color: #2d3748;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .section-title small {
+      font-size: 0.85rem;
+      color: #718096;
+      font-weight: normal;
+    }
+
+    /* 摄影方向：卡片网格布局 */
+    .cards-section {
+      margin-bottom: 45px;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: #ffffff;
+      padding: 24px 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+      border: 1px solid #e2e8f0;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      text-align: center;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .card-icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+
+    .card-title-kr {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #2b6cb0;
+      margin-bottom: 2px;
+    }
+
+    .card-title-cn {
+      font-size: 0.85rem;
+      color: #718096;
+      margin-bottom: 12px;
+    }
+
+    .card-desc {
+      font-size: 0.9rem;
+      color: #4a5568;
+      line-height: 1.5;
+    }
+
+    /* 本月拍摄计划日程表 */
+    .schedule-section {
+      background: #ffffff;
+      padding: 26px 22px;
+      border-radius: 14px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      margin-bottom: 45px;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.95rem;
+    }
+
+    th, td {
+      padding: 12px 14px;
+      border-bottom: 1px solid #edf2f7;
+    }
+
+    th {
+      background-color: #f7fafc;
+      color: #4a5568;
+      font-weight: 600;
+    }
+
+    th small, td small {
+      display: block;
+      color: #a0aec0;
+      font-size: 0.8rem;
+      margin-top: 2px;
+    }
+
+    tbody tr:hover {
+      background-color: #f8fafc;
+    }
+
+    /* 底部咨询模块与按钮 */
+    .contact-section {
+      text-align: center;
+      padding: 30px 20px;
+      background: #ffffff;
+      border-radius: 14px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .contact-btn {
+      background-color: #3182ce;
+      color: #ffffff;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 12px 28px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+      box-shadow: 0 4px 10px rgba(49, 130, 206, 0.3);
+    }
+
+    .contact-btn:hover {
+      background-color: #2b6cb0;
+      transform: translateY(-2px);
+    }
+
+    .contact-btn:active {
+      transform: translateY(0);
+    }
+
+    /* 点击按钮后显示的提示信息 */
+    .contact-message {
+      margin-top: 20px;
+      padding: 16px 20px;
+      background-color: #ebf8ff;
+      border: 1px solid #bee3f8;
+      border-radius: 10px;
+      color: #2c5282;
+      display: none; /* 初始状态隐藏 */
+      animation: fadeIn 0.3s ease-in-out forwards;
+    }
+
+    .contact-message .kr {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .contact-message .cn {
+      font-size: 0.95rem;
+      color: #4a5568;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- 1. 顶部页头模块 -->
+    <header>
+      <span class="badge">나의 취미 / 我的爱好</span>
+      <h1>사진 촬영 <small style="font-size: 1.2rem; font-weight: normal; color: #718096;">(摄影)</small></h1>
+      <p class="sub-title">사진으로 세상을 기록하는 취미 소개 / 用镜头记录世界的摄影日常</p>
+      <div class="intro-quote">
+        “用镜头记录转瞬即逝的美好，定格生活里的温柔瞬间”
+      </div>
+    </header>
+
+    <!-- 2. 摄影方向卡片模块 -->
+    <section class="cards-section">
+      <h2 class="section-title">
+        촬영 분야 <small>摄影方向</small>
+      </h2>
+      <div class="cards-grid">
+        
+        <!-- 卡片 1: 风光摄影 -->
+        <div class="card">
+          <div class="card-icon">🏔️</div>
+          <div class="card-title-kr">풍경 사진</div>
+          <div class="card-title-cn">风光摄影</div>
+          <p class="card-desc">
+            자연의 웅장함과 사계절의 빛을 포착하여 평화롭고 광활한 아름다움을 담아냅니다.
+          </p>
+        </div>
+
+        <!-- 卡片 2: 人像摄影 -->
+        <div class="card">
+          <div class="card-icon">👤</div>
+          <div class="card-title-kr">인물 사진</div>
+          <div class="card-title-cn">人像摄影</div>
+          <p class="card-desc">
+            인물의 자연스러운 감정과 눈빛을 조명과 구도로 섬세하게 표현합니다.
+          </p>
+        </div>
+
+        <!-- 卡片 3: 街头纪实摄影 -->
+        <div class="card">
+          <div class="card-icon">📷</div>
+          <div class="card-title-kr">거리 리얼리즘 사진</div>
+          <div class="card-title-cn">街头纪实摄影</div>
+          <p class="card-desc">
+            길거리의 꾸밈없는 일상과 찰나의 순간을 현실感 있게 기록합니다.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3. 本月拍摄计划日程表模块 -->
+    <section class="schedule-section">
+      <h2 class="section-title">
+        이달의 촬영 일정 <small>本月拍摄日程计划</small>
+      </h2>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>
+                날짜
+                <small>日期</small>
+              </th>
+              <th>
+                촬영 주제
+                <small>拍摄主题</small>
+              </th>
+              <th>
+                장소
+                <small>地点</small>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                11월 05일
+                <small>11月05日</small>
+              </td>
+              <td>
+                늦가을 단풍과 일몰 풍경
+                <small>深秋红叶与落日风光</small>
+              </td>
+              <td>
+                남산 공원
+                <small>南山公园</small>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                11월 16일
+                <small>11月16日</small>
+              </td>
+              <td>
+                도심 속 따뜻한 빛의 야간 인物 스냅
+                <small>都市暖光夜景人像抓拍</small>
+              </td>
+              <td>
+                성수동 카페거리
+                <small>圣水洞咖啡街</small>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                11월 27일
+                <small>11月27日</small>
+              </td>
+              <td>
+                전통시장 사람들의 활기찬 일상 기록
+                <small>传统市场生机勃勃的人间烟火纪实</small>
+              </td>
+              <td>
+                광장시장
+                <small>广藏市场</small>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 4. 底部咨询交互模块 -->
+    <section class="contact-section">
+      <button id="inquiryBtn" class="contact-btn">
+        촬영 문의（拍摄咨询）
+      </button>
+
+      <!-- 点击后展示的区域 -->
+      <div id="inquiryMsg" class="contact-message">
+        <div class="kr">촬영 관련 궁금한 점은 언제든지 물어보세요.</div>
+        <div class="cn">有关于拍摄的疑问随时可以问我。</div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- 原生 JavaScript 逻辑 -->
+  <script>
+    // 获取按钮与提示文本容器 DOM
+    var inquiryBtn = document.getElementById('inquiryBtn');
+    var inquiryMsg = document.getElementById('inquiryMsg');
+
+    // 绑定点击事件：点击后展示消息（若已显示则可自由切换）
+    inquiryBtn.addEventListener('click', function () {
+      if (inquiryMsg.style.display === 'block') {
+        inquiryMsg.style.display = 'none';
+      } else {
+        inquiryMsg.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>
